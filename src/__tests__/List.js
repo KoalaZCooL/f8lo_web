@@ -12,10 +12,10 @@ const setup = () => {
 it('has table headers "product description", "latest price", and "page 3"', () => {
   const { datatable } = setup()
   const tableHeaders = datatable.container.getElementsByClassName('tableHeaders')[0]
-                                          .getElementsByClassName('tableCols')
+                                          .getElementsByClassName('divTableCell')
   expect(tableHeaders[0]).toHaveTextContent('product description')
   expect(tableHeaders[1]).toHaveTextContent('latest price')
-  expect(tableHeaders[2]).toHaveTextContent('page 3')
+  expect(tableHeaders[2]).toHaveTextContent('details')
 });
 
 // it('will list all product page links submitted in Page 1', () => {

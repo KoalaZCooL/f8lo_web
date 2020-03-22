@@ -44,5 +44,5 @@ it('will only accept a product page link from fabelio.com, then redirect to Page
 
   const alert = await input.findByRole('alert')
 
-  expect(alert).toHaveTextContent('ok')
+  expect(alert).toHaveTextContent('processing..')
 })

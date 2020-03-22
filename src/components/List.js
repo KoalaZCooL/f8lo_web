@@ -13,6 +13,16 @@ class List extends React.Component {
       ]
     };
   }
+
+  componentDidMount(){
+    fetch('https://f8lo.herokuapp.com')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          links:data
+        });
+      });
+  }
   
   createTable = () => {
     let table = []

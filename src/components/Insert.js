@@ -5,7 +5,8 @@ class Insert extends React.Component {
     super(props);
     this.state = {
       url: '',
-      error: ''
+      error: '',
+      inserting : false
     };
     this.addUrl = this.addUrl.bind(this)
     this.validateUrl = this.validateUrl.bind(this)
@@ -20,8 +21,23 @@ class Insert extends React.Component {
   validateUrl(){
     if(0===this.state.url.indexOf('https://fabelio.com/')){
       this.setState({
-        error:'ok'
+        error:'processing...',
+        inserting:true
       });
+
+      fetch('https://f8lo.herokuapp.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: this.state.url })
+      })
+        .then(response => response.json())
+        .then(data => {
+          this.setState({
+            error:'ok',
+            inserting:false
+          });
+          window.location.href = '/detail?url='+this.state.url;
+        });
     }else{
       this.setState({
         error:'invalid link'
@@ -41,9 +57,9 @@ class Insert extends React.Component {
           value={this.state.url}
           onChange={this.addUrl}
         />
-        <button onClick={this.validateUrl}>
+        { this.state.inserting ? null : <button onClick={this.validateUrl}>
           Submit
-        </button>
+        </button> }
         {this.state.error ? <div role="alert">{this.state.error}</div> : null}
       </div>
     );
